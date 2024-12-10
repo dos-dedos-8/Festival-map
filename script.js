@@ -1,25 +1,26 @@
 // Dynamically load Google Maps API
-function loadGoogleMapsAPI(callback) {
+function loadGoogleMapsAPI() {
   const script = document.createElement("script");
-  script.src = "https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=" + callback;
+  script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyDJyXNG2JeQ9V6mhgZwO12pwryeEpZ7GjU&callback=initMap";
   script.async = true;
   script.defer = true;
   document.head.appendChild(script);
 }
 
-// Initialize map when API is loaded
-loadGoogleMapsAPI("initMap");
-
+// Initialize map
 function initMap() {
   const map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: -36.860260, lng: 174.635300 }, // Coordinates for Trust Arena
+    center: { lat: -36.860260, lng: 174.635300 }, // Trust Arena coordinates
     zoom: 15,
   });
 
-  // Replace google.maps.Marker with AdvancedMarkerElement
+  // Add AdvancedMarkerElement
   const advancedMarker = new google.maps.marker.AdvancedMarkerElement({
     map: map,
     position: { lat: -36.860260, lng: 174.635300 },
-    title: "Trust Arena", // Tooltip shown on hover
+    title: "Trust Arena", // Optional tooltip
   });
 }
+
+// Load Google Maps API
+loadGoogleMapsAPI();
