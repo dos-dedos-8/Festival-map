@@ -7,7 +7,7 @@ function loadGoogleMapsAPI(callback) {
   }
 
   const script = document.createElement("script");
-  script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=${callback}`;
+  script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyDJyXNG2JeQ9V6mhgZwO12pwryeEpZ7GjU&callback=${callback}`;
   script.async = true;
   script.defer = true;
   document.head.appendChild(script);
