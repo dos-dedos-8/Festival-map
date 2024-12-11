@@ -1,7 +1,7 @@
-// Dynamically load the Google Maps API
+// Dynamically load Google Maps API
 function loadGoogleMapsAPI(callback) {
   const script = document.createElement("script");
-  script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=${callback}&libraries=marker&v=weekly`;
+  script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyDJyXNG2JeQ9V6mhgZwO12pwryeEpZ7GjU&callback=${callback}&libraries=marker&v=weekly`;
   script.async = true;
   script.defer = true;
   document.head.appendChild(script);
@@ -10,12 +10,13 @@ function loadGoogleMapsAPI(callback) {
 // Initialize the map
 async function initMap() {
   try {
+    // Load required libraries
     const { Map } = await google.maps.importLibrary("maps");
     const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
 
-    // Create the map instance
+    // Initialize the map
     const map = new Map(document.getElementById("map"), {
-      center: { lat: -36.860260, lng: 174.635300 }, // Trust Arena coordinates
+      center: { lat: -36.860260, lng: 174.635300 },
       zoom: 15,
     });
 
@@ -26,12 +27,12 @@ async function initMap() {
       title: "Trust Arena",
     });
   } catch (error) {
-    console.error("Error initializing the map or marker:", error);
+    console.error("Map or Marker Initialization Error:", error);
   }
 }
 
 // Attach initMap to the global window object
 window.initMap = initMap;
 
-// Load the API
+// Load the Google Maps API
 loadGoogleMapsAPI("initMap");
