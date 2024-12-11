@@ -1,13 +1,14 @@
-// Load environment variables (API keys) from.env (not directly used in GitHub Pages, but we'll mimic this for simplicity)
-const API_KEY = 'AIzaSyDJyXNG2JeQ9V6mhgZwO12pwryeEpZ7GjU'; // Replace with your actual Google Maps API key
+// Load environment variables (API keys) from.env (not directly used in GitHub Pages, but we're mimicking this for simplicity)
+const API_KEY = 'AIzaSyDJyXNG2JeQ9V6mhgZwO12pwryeEpZ7GjU'; // Your provided Google Maps API key
 const MAP_CENTER = { lat: 37.7749, lng: -122.4194 }; // Default map center (San Francisco)
 const MAP_ZOOM = 12; // Default zoom level
 
-// Dynamically load Google Maps API
+// Dynamically load Google Maps API with a callback to ensure initMap is called after loading
 function loadGoogleMapsAPI() {
   const script = document.createElement("script");
   script.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&libraries=marker&v=weekly&callback=initMap`;
   script.async = true;
+  script.defer = true; // Add defer to ensure the script runs after the DOM has finished parsing
   document.head.appendChild(script);
 }
 
@@ -15,16 +16,21 @@ function loadGoogleMapsAPI() {
 function initMap() {
   try {
     // Create the map
-    const map = new google.maps.Map(document.getElementById("map"), {
-      center: MAP_CENTER,
-      zoom: MAP_ZOOM,
-    });
+    const mapElement = document.getElementById("map");
+    if (mapElement) { // Add a null check to ensure the element exists
+      const map = new google.maps.Map(mapElement, {
+        center: MAP_CENTER,
+        zoom: MAP_ZOOM,
+      });
 
-    // Example: Add a marker at the map center
-    const marker = new google.maps.Marker({
-      position: MAP_CENTER,
-      map: map,
-    });
+      // Example: Add a marker at the map center
+      const marker = new google.maps.Marker({
+        position: MAP_CENTER,
+        map: map,
+      });
+    } else {
+      console.error("Map element not found.");
+    }
   } catch (error) {
     console.error("Error initializing map:", error);
   }
