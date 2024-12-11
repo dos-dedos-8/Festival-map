@@ -1,16 +1,17 @@
-// Dynamically load the Google Maps library
-async function loadGoogleMapsLibrary() {
-  // Import the required libraries from Google Maps
-  const { Map } = await google.maps.importLibrary("maps");
-  const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
-
-  return { Map, AdvancedMarkerElement };
+// Dynamically load the Google Maps API
+function loadGoogleMapsAPI(callback) {
+  const script = document.createElement("script");
+  script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=${callback}&libraries=marker&v=weekly`;
+  script.async = true;
+  script.defer = true;
+  document.head.appendChild(script);
 }
 
 // Initialize the map
 async function initMap() {
   try {
-    const { Map, AdvancedMarkerElement } = await loadGoogleMapsLibrary();
+    const { Map } = await google.maps.importLibrary("maps");
+    const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
 
     // Create the map instance
     const map = new Map(document.getElementById("map"), {
@@ -26,23 +27,11 @@ async function initMap() {
     });
   } catch (error) {
     console.error("Error initializing the map or marker:", error);
-
-    // Optional: Provide fallback functionality if AdvancedMarkerElement fails
-    alert("The map could not be fully initialized. Please try again later.");
   }
 }
 
-// Attach the initMap function to the global scope
+// Attach initMap to the global window object
 window.initMap = initMap;
 
-// Load the Google Maps API dynamically with async and defer
-function loadGoogleMapsAPI() {
-  const script = document.createElement("script");
-  script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyDJyXNG2JeQ9V6mhgZwO12pwryeEpZ7GjU&callback=initMap&v=beta`;
-  script.async = true;
-  script.defer = true;
-  document.head.appendChild(script);
-}
-
-// Trigger loading
-loadGoogleMapsAPI();
+// Load the API
+loadGoogleMapsAPI("initMap");
