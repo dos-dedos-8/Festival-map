@@ -7,20 +7,20 @@
   border: none;  /* Optional: Remove border, if any */
 }
 
-/* Optional: Body reset for consistent appearance */
+/* Global reset for consistent appearance */
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, sans-serif; /* Default font for the page */
+  font-family: Arial, sans-serif; /* Adjust font as needed */
 }
 
-/* Optional: Button styling (if adding UI buttons) */
+/* Button styling for UI elements */
 button {
   position: absolute;
   top: 10px;
   left: 10px;
-  z-index: 1000;
+  z-index: 1000; /* Ensure buttons appear above the map */
   background-color: #007BFF;
   color: white;
   border: none;
@@ -32,16 +32,34 @@ button {
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #0056b3; /* Darker shade on hover */
 }
 
-/* Optional: Add a container style for other elements (if needed) */
+/* Example: Secondary button styling */
+button.secondary {
+  background-color: #6c757d;
+}
+
+button.secondary:hover {
+  background-color: #5a6268; /* Darker shade on hover */
+}
+
+/* Container styling for overlays or legends */
 .container {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 999;
+  z-index: 999; /* Ensure containers are above the map */
   background: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
   padding: 10px;
   border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional shadow for depth */
+  font-size: 14px;
+}
+
+/* Example container for future use */
+.container.legend {
+  bottom: 10px;
+  left: 10px;
+  top: auto; /* Position at the bottom-left */
 }
