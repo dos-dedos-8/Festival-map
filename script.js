@@ -36,5 +36,8 @@ function initMap() {
   }
 }
 
+// Expose initMap to the global scope (fix for InvalidValueError)
+window.initMap = initMap;
+
 // Load the Google Maps API when the script runs
 loadGoogleMapsAPI();
