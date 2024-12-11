@@ -3,14 +3,25 @@ const API_KEY = 'AIzaSyDJyXNG2JeQ9V6mhgZwO12pwryeEpZ7GjU'; // Your provided Goog
 const MAP_CENTER = { lat: 37.7749, lng: -122.4194 }; // Default map center (San Francisco)
 const MAP_ZOOM = 12; // Default zoom level
 
-// Dynamically load Google Maps API with a callback to ensure initMap is called after loading
+// Dynamically load Google Maps API without a callback
 function loadGoogleMapsAPI() {
   const script = document.createElement("script");
-  script.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&libraries=marker&v=weekly&callback=initMap`;
+  script.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&libraries=marker&v=weekly`;
   script.async = true;
   script.defer = true; // Add defer to ensure the script runs after the DOM has finished parsing
   document.head.appendChild(script);
 }
+
+// Initialize the map after the Google Maps API has finished loading
+document.addEventListener('DOMContentLoaded', (event) => {
+  if (window.google && window.google.maps) {
+    initMap();
+  } else {
+    setTimeout(() => {
+      initMap();
+    }, 1000); // Fallback: try again after 1 second
+  }
+});
 
 // Initialize the map
 function initMap() {
@@ -35,9 +46,6 @@ function initMap() {
     console.error("Error initializing map:", error);
   }
 }
-
-// Expose initMap to the global scope (fix for InvalidValueError)
-window.initMap = initMap;
 
 // Load the Google Maps API when the script runs
 loadGoogleMapsAPI();
