@@ -1,7 +1,7 @@
 // Load environment variables (API keys) from.env (not directly used in GitHub Pages, but we're mimicking this for simplicity)
 const API_KEY = 'AIzaSyDJyXNG2JeQ9V6mhgZwO12pwryeEpZ7GjU'; // Your provided Google Maps API key
-const MAP_CENTER = { lat: 37.7749, lng: -122.4194 }; // Default map center (San Francisco)
-const MAP_ZOOM = 12; // Default zoom level
+const MAP_CENTER = { lat: -36.866667, lng: 174.633333 }; // Trust Arena, Henderson, West Auckland
+const MAP_ZOOM = 16; // Adjusted zoom level for a more focused view
 
 // Dynamically load Google Maps API without a callback
 function loadGoogleMapsAPI() {
