@@ -6,25 +6,14 @@ const MAP_ZOOM = 12; // Default zoom level
 // Dynamically load Google Maps API without a callback
 function loadGoogleMapsAPI() {
   const script = document.createElement("script");
-  script.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&libraries=marker&v=weekly`;
+  script.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&libraries=marker&v=weekly&callback=initMap`;
   script.async = true;
   script.defer = true; // Add defer to ensure the script runs after the DOM has finished parsing
   document.head.appendChild(script);
 }
 
 // Initialize the map after the Google Maps API has finished loading
-document.addEventListener('DOMContentLoaded', (event) => {
-  if (window.google && window.google.maps) {
-    initMap();
-  } else {
-    setTimeout(() => {
-      initMap();
-    }, 1000); // Fallback: try again after 1 second
-  }
-});
-
-// Initialize the map
-function initMap() {
+window.initMap = function initMap() {
   try {
     // Create the map
     const mapElement = document.getElementById("map");
@@ -34,8 +23,8 @@ function initMap() {
         zoom: MAP_ZOOM,
       });
 
-      // Example: Add a marker at the map center
-      const marker = new google.maps.Marker({
+      // Example: Add a marker at the map center using AdvancedMarkerElement
+      const marker = new google.maps.marker.AdvancedMarkerElement({
         position: MAP_CENTER,
         map: map,
       });
